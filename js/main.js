@@ -1,6 +1,15 @@
-var http = require('http');
+function max(array) {
+     array[0] = 'A';
+     array[1] = 'B';
+     let value = array.length;
+     
+ if (Number.isInteger(value) === true) {
+  return value;
+} else   {
+  return NaN;
+}
+}
 
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end('Hello World!');
-}).listen(8080);
+var  example = [];
+var start = max(example);
+console.log(max(example));
