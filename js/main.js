@@ -1,4 +1,4 @@
-function max(array) {
+/*function max(array) {
      array[0] = 'A';
      array[1] = 'B';
      let value = array.length;
@@ -12,4 +12,8 @@ function max(array) {
 
 var  example = [];
 var start = max(example);
-console.log(max(example));
+console.log(max(example));*/
+var pizza = 'pizza is alright';
+var salo = pizza.replace('pizza','salo');
+console.log(salo +' '+'and'+' '+ pizza);
+
