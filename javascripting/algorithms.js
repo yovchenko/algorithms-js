@@ -1,29 +1,18 @@
-function recursion (num1) {
-    if (num1 <= 2) {
-        return 1;
-    }
-    else {
-        return recursion(num1 - 2) + recursion(num1-1);
-    }
+var str = 'aaaabbccccc';
+var obj = {};
+function countSymbols(str) {
+var length = str.length;
+for (var i = 0; i < length; i++) {
+var char = str.charAt(i);
+var count = 0;
+for (var j = 0; j < length; j++) { 
+var currentChar = str.charAt(j);
+if (char == currentChar) {
+count++;
 }
-console.log(recursion(7));
-
-function result(num2) {
-var x = 1;
-var y = 2;
-var temp;
-
-
-if (num2 <= 2) {
-    return 1;
-}
-else {
-    for (var i = 3; i < num2; i++) {
-    temp = x + y;
-    x = y;
-    y = temp;
-    }
-    return temp;
+obj[char] = count;
 }
 }
-console.log(result(5));
+return obj;
+}
+console.log(countSymbols(str));

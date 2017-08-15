@@ -8,7 +8,7 @@
         "name": "Launch Client Side",
         "type": "chrome",
         "request": "launch",
-        "file": "D:/Web/flex/item.html",
+        "file": "${workspaceRoot}/index.html",
         "sourceMaps": true,
         "webRoot": "${workspaceRoot}"
     },

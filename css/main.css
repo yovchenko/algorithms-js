@@ -4,3 +4,15 @@ header {
     height: 20px;
 }
 
+#it {
+    border: 1px solid green;
+    font-size: 150%;
+    
+}
+
+.check {
+    width: 500px;
+    height: 200px;
+    background-color: grey;
+}
+
