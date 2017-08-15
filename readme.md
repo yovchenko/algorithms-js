@@ -1,1 +1,1 @@
-# The repository is an example of my work
+# Lesson Bootstrap and Node static server,JS algorithms
