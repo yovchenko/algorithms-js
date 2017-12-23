@@ -1,18 +1,10 @@
-var str = 'aaaabbccccc';
-var obj = {};
-function countSymbols(str) {
-var length = str.length;
-for (var i = 0; i < length; i++) {
-var char = str.charAt(i);
-var count = 0;
-for (var j = 0; j < length; j++) { 
-var currentChar = str.charAt(j);
-if (char == currentChar) {
-count++;
+module.exports = {
+    openOrSenior: function(data){   
+    const output = [];
+    data.forEach(function (el) {
+           if(el[0] >= 55 && el[1] > 7) output.push('Senior');
+           else output.push('Open');
+});
+return output;
 }
-obj[char] = count;
-}
-}
-return obj;
-}
-console.log(countSymbols(str));
+};
