@@ -1,7 +1,11 @@
-var total = 0;
-var limit = 10;
-
-for (var i = 0; i<limit; i++) {
-       total += i;
-       console.log(total);
-}
+var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+var countedNames = names.reduce(function (allNames, name) { 
+  if (name in allNames) {
+    allNames[name]++;
+  }
+  else {
+    allNames[name] = 1;
+  }
+  return allNames;
+}, {});
+console.log(countedNames)
