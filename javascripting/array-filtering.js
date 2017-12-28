@@ -1,3 +1,3 @@
-let str = 'string';
-
-console.log(str.slice(1,str.length));
+var numbers = [1,2,3,4,5,6,7,8,9,10];
+var numbersFiltered = numbers.filter( function evenNumber(number) {return number  % 2 === 0;});
+console.log(numbersFiltered);
