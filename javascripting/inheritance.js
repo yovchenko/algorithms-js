@@ -24,3 +24,4 @@ function Person(first, last, age, gender, interests) {
 let person = new Person('Sasha','Beliy',30,'male','soccer');
 let teacher = new Teacher('Masha','Ukraine',20,'female','tv');
 teacher.greeting();
+
