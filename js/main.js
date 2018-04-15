@@ -14,7 +14,7 @@ var  example = [];
 var start = max(example);
 console.log(max(example));*/
 
-function primeNum(n) {
+/* function primeNum(n) {
 var i = 2,
   j = false;
   f = Math.trunc(Math.sqrt(n));
@@ -27,6 +27,31 @@ for (; i <= f + 1; i++) {
       return (console.log((i - 1) + ' ' + n + ' is not prime'));
     }
   }
+} 
+
+primeNum(7733) */
+
+class Observable {
+  constructor() {
+    this.observers = [];
+  }
+  subscribe(f) {
+    this.observers.push(f)
+  }
+  unsubscribe(f) {
+    this.observers = this.observers.filter(subscriber => subscriber !== f)
+  }
+  notify(data) {
+    this.observers.forEach(observer => observer(data));
+  }
 }
 
-primeNum(7733)
+const update1 = (value) => console.log(value);
+const update2 = (value) => console.log(++value);
+const update3 = (value) => console.log(--value);
+const numObserver = new Observable;
+numObserver.subscribe(update1); 
+numObserver.subscribe(update2); 
+numObserver.subscribe(update3); 
+numObserver.unsubscribe(update3); 
+numObserver.notify(1);
