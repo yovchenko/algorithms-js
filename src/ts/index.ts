@@ -1,6 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import * as _ from "lodash";
 // import { Observable } from 'rxjs';
 // import { of } from 'rxjs';
 // import { map } from "rxjs/operators";
+
+console.log(_);
 /*
 const observable = new Observable((observer)=>{
     observer.next("Hello world 1");
@@ -14,21 +19,24 @@ observable.subscribe((str)=>{
 });
 */
 
+/*
 function bounce(ms: number) {
   let flag = true;
   return () => {
-    if(flag) {
+    if (flag) {
       flag = false;
-      setTimeout(() => {console.log("bounce");
-      flag = true;
-      }, ms)
+      setTimeout(() => {
+        console.log("bounce");
+        flag = true;
+      }, ms);
     }
-  }
+  };
 }
 
-let f = bounce(1000);
+const f = bounce(1000);
 f();
 f();
+*/
 
 /*
 let stream = of(1,2,3).pipe(
