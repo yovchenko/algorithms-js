@@ -5,33 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch index.html",
+            "file": "${workspaceFolder}/index.html"
+        },
+        {
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "name": "nodemon",
             "program": "${workspaceFolder}/src/ts/index.ts",
             "request": "launch",
             "restart": true,
-            "runtimeExecutable": "nodemon",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
         },
-        {
-            "name": "Launch Client Side",
-            "type": "chrome",
-            "request": "launch",
-            "file": "${workspaceRoot}/index.html",
-            "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
-        },
-        {
-            "name": "Launch Server Side",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost:8080",
-            "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
-        }
+
     ]
 }

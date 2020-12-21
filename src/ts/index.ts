@@ -5,6 +5,10 @@ import * as _ from "lodash";
 // import { of } from 'rxjs';
 // import { map } from "rxjs/operators";
 
+const header = document.createElement("header");
+header.innerHTML = "Hello Webpack!";
+document.body.appendChild(header);
+
 console.log(_);
 /*
 const observable = new Observable((observer)=>{

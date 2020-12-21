@@ -1,1 +1,1 @@
-#Lesson Bootstrap and Node static server,JS algorithms
+#Sandbox, TS algorithms and SCSS
