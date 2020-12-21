@@ -1,16 +1,28 @@
 /* eslint-disable no-undef */
 const webpack = require("webpack");
 const path = require("path");
+require("dotenv").config();
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== "production";
+
+const PATHS = {
+  source: path.join(__dirname, "client/src"),
+  dist: path.join(__dirname, "dist/client")
+};
 
 module.exports = {
-  mode: "development",
-  devtool: "inline-source-map",
-  watch: true,
-  entry: ["./src/ts/index.ts"],
+  entry: [PATHS.source + "/ts/index.ts"],
+  mode: process.env.NODE_ENV,
+  devtool: "source-map",
+  watchOptions: {
+    ignored: "node_modules/**"
+  },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    inline: true,
+    progress: true,
+    contentBase: path.join(__dirname, PATHS.dist),
     compress: true,
     port: 9000
   },
@@ -21,23 +33,27 @@ module.exports = {
         use: "ts-loader"
       },
       {
-        test: /\.(scss)$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
+          MiniCssExtractPlugin.loader,
           {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: "style-loader"
+            loader: "css-loader",
+            options: {
+              importLoaders: 2
+            }
           },
           {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: "css-loader"
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
             loader: "postcss-loader",
             options: {
-              // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-              plugins: function() {
-                return [require("autoprefixer")];
+              postcssOptions: {
+                plugins: [
+                  [
+                    "autoprefixer",
+                    {
+                      grid: true
+                    }
+                  ]
+                ]
               }
             }
           },
@@ -55,12 +71,27 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? "[name].css" : "[name].[contenthash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
+    }),
     new HtmlWebpackPlugin({
-      title: "Development"
+      filename: "index.html",
+      template: PATHS.source + "/index.html",
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
+      }
     })
   ],
   output: {
-    path: path.join(__dirname, "dist"),
+    path: PATHS.dist,
     filename: "index.js"
   }
 };

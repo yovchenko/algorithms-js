@@ -1,15 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import * as _ from "lodash";
 // import { Observable } from 'rxjs';
 // import { of } from 'rxjs';
 // import { map } from "rxjs/operators";
 
-const header = document.createElement("header");
-header.innerHTML = "Hello Webpack!";
-document.body.appendChild(header);
-
-console.log(_);
+console.log("Hello Server!");
 /*
 const observable = new Observable((observer)=>{
     observer.next("Hello world 1");
