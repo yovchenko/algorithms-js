@@ -37,15 +37,17 @@ body {
     transition: 1s; /* will be prefixed */
   }
 
+// Mobile-first approach
 .wrapper {
     height: 100vh;
     display: grid;
-    grid-template-rows: 200px auto 200px;
-    grid-template-columns: 25% auto;
+    grid-template-rows: 100px 80px auto 100px;
+    grid-template-columns: auto;
     grid-template-areas: 
-    "header header"
-    "section main"
-    "footer footer";
+    "header"
+    "section"
+    "main"
+    "footer";
 }
 
 header {
@@ -97,7 +99,14 @@ footer {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) { 
-
+    .wrapper {
+        grid-template-rows: 200px auto 200px;
+        grid-template-columns: 25% auto;
+        grid-template-areas: 
+        "header header"
+        "section main"
+        "footer footer";
+    }
 }
 
 // Large devices (desktops, 992px and up)
