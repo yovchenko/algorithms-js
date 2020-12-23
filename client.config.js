@@ -5,6 +5,7 @@ require("dotenv").config();
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const devMode = process.env.NODE_ENV !== "production";
 
 const PATHS = {
@@ -39,7 +40,8 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              importLoaders: 2
+              importLoaders: 2,
+              sourceMap: true
             }
           },
           {
@@ -50,16 +52,20 @@ module.exports = {
                   [
                     "autoprefixer",
                     {
-                      grid: true
+                      overrideBrowserslist: ["ie >= 8", "last 4 version"]
                     }
                   ]
                 ]
-              }
+              },
+              sourceMap: true
             }
           },
           {
             // Loads a SASS/SCSS file and compiles it to CSS
-            loader: "sass-loader"
+            loader: "sass-loader",
+            options: {
+              sourceMap: true
+            }
           }
         ]
       }
