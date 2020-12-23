@@ -15,7 +15,7 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "name": "nodemon",
-            "program": "${workspaceFolder}/src/ts/index.ts",
+            "program": "${workspaceFolder}/server/src/ts/index.ts",
             "request": "launch",
             "restart": true,
             "runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
@@ -23,7 +23,6 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
-        },
-
+        }
     ]
 }
