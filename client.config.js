@@ -9,7 +9,11 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 
+// console.log("process.env.NODE_ENV : " + process.env.NODE_ENV);
+
 const devMode = process.env.NODE_ENV !== "production";
+
+// console.log("devmode : " + devMode);
 
 const PATHS = {
   source: path.join(__dirname, "client/src"),
@@ -19,6 +23,12 @@ const PATHS = {
 const plugins = [
   new CleanWebpackPlugin(),
   new webpack.HotModuleReplacementPlugin(),
+  new MiniCssExtractPlugin({
+    // Options similar to the same options in webpackOptions.output
+    // both options are optional
+    filename: devMode ? "[name].css" : "[name].[contenthash].css",
+    chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
+  }),
   new HtmlWebpackPlugin({
     filename: "index.html",
     template: PATHS.source + "/index.html",
@@ -32,19 +42,13 @@ const plugins = [
     }
   })
 ];
-if (devMode)
+if (!devMode) {
   plugins.push(
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: devMode ? "[name].css" : "[name].[contenthash].css",
-      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
-    }),
     new CssMinimizerPlugin(),
     new HtmlMinimizerPlugin(),
     new TerserPlugin()
   );
-
+}
 module.exports = {
   plugins,
   entry: [PATHS.source + "/ts/index.ts"],
