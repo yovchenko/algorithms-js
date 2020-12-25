@@ -2,6 +2,7 @@
 // import { of } from 'rxjs';
 // import { map } from "rxjs/operators";
 
+/*
 function isIsogram(str: string): boolean {
   str = str.toLowerCase();
   const arr = str.split("");
@@ -12,15 +13,9 @@ function isIsogram(str: string): boolean {
   }
   return true;
 }
+console.log(isIsogram("Dermatoglyphics"));
+*/
 
-//console.log(isIsogram("Dermatoglyphics"));
-
-//console.log(isIsogram("isogram"));
-
-//console.log(isIsogram("aba"));
-
-console.log(isIsogram("hpbsOtyqneajmflzrdxcvuwoigk"));
-
-//console.log(isIsogram("isIsogram"));
-
-//console.log(isIsogram(""));
+export function duplicateCount(text: string): number {
+  return 0;
+}
