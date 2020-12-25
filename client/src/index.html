@@ -8,7 +8,8 @@
 <body>
     <div class="wrapper">
         <header>
-            <h2> Header </h2>
+            <h2> <span> Header </span> </h2>
+            <button type="button" id="header-button" class="btn btn-primary btn-lg"> Add node </button>
         </header>
 
         <section>
@@ -23,9 +24,16 @@
 
         <main>
             <h1>Main h1</h1>
-            <p>Paragraph 1</p>
-            <p>Paragraph 2</p>
-            <p>Paragraph 3</p>
+            <template>
+                <div class="container">
+                    <div class="row">
+                        <p class="col-6 col-md-3">Paragraph 1 <content></content></p>
+                        <p class="col-6 col-md-3">Paragraph 2 <content></content></p>
+                        <p class="col-6 col-md-3">Paragraph 3 <content></content></p>
+                        <p class="col-6 col-md-3">Paragraph 4 <content></content></p>
+                    </div>
+                </div>
+            </template>
         </main>
 
         <footer>

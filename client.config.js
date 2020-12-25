@@ -8,12 +8,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
-
-// console.log("process.env.NODE_ENV : " + process.env.NODE_ENV);
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
-
-// console.log("devmode : " + devMode);
 
 const PATHS = {
   source: path.join(__dirname, "client/src"),
@@ -40,6 +37,9 @@ const plugins = [
       removeStyleLinkTypeAttributes: true,
       useShortDoctype: true
     }
+  }),
+  new ScriptExtHtmlWebpackPlugin({
+    defer: ["deferLoading"]
   })
 ];
 if (!devMode) {
@@ -51,7 +51,10 @@ if (!devMode) {
 }
 module.exports = {
   plugins,
-  entry: [PATHS.source + "/ts/index.ts"],
+  entry: {
+    index: PATHS.source + "/ts/index.ts",
+    deferLoading: PATHS.source + "/ts/defer-loading.ts"
+  },
   mode: process.env.NODE_ENV,
   devtool: "source-map",
   watchOptions: {
@@ -113,7 +116,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"]
   },
   output: {
-    path: PATHS.dist,
-    filename: "index.js"
+    filename: "[name].bundle.js",
+    path: PATHS.dist
   }
 };
