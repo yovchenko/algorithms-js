@@ -51,10 +51,10 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "start:dev": "webpack serve --config client.config.js",
+    "client:dev": "webpack serve --config client.config.js",
     "client:build": "webpack --config client.config.js",
     "server:dev": "nodemon --config nodemon.json --inspect server/src/ts/index.ts",
-    "test:dev": "jest --detectOpenHandles"
+    "server:test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",
