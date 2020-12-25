@@ -2,7 +2,7 @@
 // import { of } from 'rxjs';
 // import { map } from "rxjs/operators";
 
-function isIsogram(str: string) {
+function isIsogram(str: string): boolean {
   str = str.toLowerCase();
   const arr = str.split("");
   const len = arr.length;

@@ -5,6 +5,9 @@ require("dotenv").config();
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
 
@@ -13,7 +16,37 @@ const PATHS = {
   dist: path.join(__dirname, "dist/client")
 };
 
+const plugins = [
+  new CleanWebpackPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
+  new HtmlWebpackPlugin({
+    filename: "index.html",
+    template: PATHS.source + "/index.html",
+    minify: {
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
+    }
+  })
+];
+if (devMode)
+  plugins.push(
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? "[name].css" : "[name].[contenthash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
+    }),
+    new CssMinimizerPlugin(),
+    new HtmlMinimizerPlugin(),
+    new TerserPlugin()
+  );
+
 module.exports = {
+  plugins,
   entry: [PATHS.source + "/ts/index.ts"],
   mode: process.env.NODE_ENV,
   devtool: "source-map",
@@ -52,6 +85,7 @@ module.exports = {
                   [
                     "autoprefixer",
                     {
+                      grid: true,
                       overrideBrowserslist: ["ie >= 8", "last 4 version"]
                     }
                   ]
@@ -74,28 +108,6 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: devMode ? "[name].css" : "[name].[contenthash].css",
-      chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: PATHS.source + "/index.html",
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true
-      }
-    })
-  ],
   output: {
     path: PATHS.dist,
     filename: "index.js"
