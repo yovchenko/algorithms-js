@@ -1,6 +1,7 @@
 // import { Observable } from 'rxjs';
 // import { of } from 'rxjs';
 // import { map } from "rxjs/operators";
+const _ = require("lodash");
 
 /*
 function isIsogram(str: string): boolean {
@@ -53,25 +54,5 @@ const longEar = {
   __proto__: rabbit
 };
 
-const deepCopyFunction = inObject => {
-  let value, key;
-
-  if (typeof inObject !== "object" || inObject === null) {
-    return inObject; // Return the value if inObject is not an object
-  }
-
-  // Create an array or object to hold the values
-  const outObject = Array.isArray(inObject) ? [] : {};
-
-  for (key in inObject) {
-    value = inObject[key];
-
-    // Recursively (deep) copy for nested objects, including arrays
-    outObject[key] = deepCopyFunction(value);
-  }
-
-  return outObject;
-};
-
-console.log(Object.getOwnPropertyNames(longEar));
-console.log(deepCopyFunction(longEar));
+const res = _.cloneDeep(longEar);
+console.log(res);
