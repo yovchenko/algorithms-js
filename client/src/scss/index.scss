@@ -68,10 +68,25 @@ main {
     background-color: lightpink;
     justify-content: stretch;
     text-align: center;
-}
-
-.test {
-    background-color: red;
+    .pagination {
+        min-height: 50px;
+        justify-content: center;
+        flex-wrap: wrap;
+            a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+                transition: background-color .3s;
+            }
+            a.active {
+                background-color: dodgerblue;
+                color: white;
+            }
+            a:hover:not(.active) {
+                background-color: #ddd;
+            }
+        }
 }
 
 main > * {

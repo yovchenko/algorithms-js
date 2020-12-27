@@ -39,6 +39,7 @@ const plugins = [
     }
   }),
   new ScriptExtHtmlWebpackPlugin({
+    preload: ["index"],
     defer: ["deferLoading"]
   })
 ];
