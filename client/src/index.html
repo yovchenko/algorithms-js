@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <base href="/">
 </head>
 <body>
     <div class="wrapper">
@@ -26,12 +27,12 @@
             <h1>Main h1</h1>
             <article ng-app="angularApp" ng-controller="pagesCtrl">
                 <section class="pagination">
-                    <a class="active" ng-click="page = '1'" href="#/!">1</a>
-                    <a ng-click="page = '2'" href="#!2">2</a>
-                    <a ng-click="page = '3'" href="#!3">3</a>
+                    <a class="active" ng-click="page = '1'" href="/">1</a>
+                    <a ng-click="page = '2'" href="2">2</a>
+                    <a ng-click="page = '3'" href="3">3</a>
                 </section>
                 <div ng-view></div>
-                <p> Page : {{ page }} </p>
+                <p>$location.path() = {{$location.path()}}</p>
             </article>
             <template>
                 <div class="container">
