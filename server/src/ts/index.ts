@@ -1,7 +1,8 @@
-// import { Observable } from 'rxjs';
-// import { of } from 'rxjs';
+import { interval, Observable } from "rxjs";
+import { take, map } from "rxjs/operators";
+
+// import { of, Observable } from 'rxjs';
 // import { map } from "rxjs/operators";
-const _ = require("lodash");
 
 /*
 function isIsogram(str: string): boolean {
@@ -37,22 +38,28 @@ export function duplicateCount(text: string): number {
 }
 //console.log(duplicateCount("aabbcde"));
 */
-const animal = {
-  eats: true,
-  walk() {
-    alert("Animal walk");
-  }
-};
 
-const rabbit = {
-  jumps: true,
-  __proto__: animal
-};
+const source: Array<number | string> = [1, 2, 3, "1", 0, "3", 20, "5"];
+const result = source
+  .map((val: number | string) => {
+    if (typeof val !== "number") return parseInt(val);
+  })
+  .filter((val: number | undefined) => {
+    if (val !== undefined) return val;
+  })
+  .reduce<number>((prev, current) => {
+    return prev + current;
+  }, 0);
+console.log(result);
 
-const longEar = {
-  earLength: 10,
-  __proto__: rabbit
-};
+const rxSource: Observable<string | number> = interval(1000)
+  .pipe(take(5))
+  .pipe(
+    map((i: string | number) => {
+      return [1, 2, 3, "1", 0, "3", 20, "5"][i];
+    })
+  );
 
-const res = _.cloneDeep(longEar);
-console.log(res);
+rxSource.subscribe(val => {
+  console.log(val);
+});

@@ -38,9 +38,6 @@ angular
         },
         template: "<h1>Page 3<h1/>",
         controller: "pagesCtrl"
-      })
-      .otherwise({
-        redirectTo: "/"
       });
-    $locationProvider.html5Mode(true).hashPrefix("*");
+    $locationProvider.html5Mode(true);
   });
