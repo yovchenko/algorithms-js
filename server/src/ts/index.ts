@@ -1,5 +1,5 @@
-import { interval, Observable } from "rxjs";
-import { take, map } from "rxjs/operators";
+//import { interval, Observable } from "rxjs";
+//import { take, map } from "rxjs/operators";
 
 // import { of, Observable } from 'rxjs';
 // import { map } from "rxjs/operators";
@@ -18,7 +18,6 @@ function isIsogram(str: string): boolean {
 console.log(isIsogram("Dermatoglyphics"));
 */
 
-/*
 export function duplicateCount(text: string): number {
   text = text.toLowerCase();
   const len = text.length;
@@ -36,8 +35,58 @@ export function duplicateCount(text: string): number {
   }
   return count;
 }
-//console.log(duplicateCount("aabbcde"));
+
+export function maxNumDublicates(text: string): number {
+  if (!text.length) return 0;
+  text = text.toLowerCase();
+  const obj: { [key: string]: number } = text
+    .split("")
+    .reduce((acc, current) => {
+      if (acc[current] === undefined) {
+        acc[current] = 0;
+      } else acc[current] += 1;
+      return acc;
+    }, {});
+  const arr: number[] = Object.values(obj);
+  const num = Math.max(...arr);
+  return num ? num + 1 : 0;
+}
+
+console.log(maxNumDublicates("Indivisibilitiessssss"));
+/*
+import { from } from "rxjs";
+import { take } from "rxjs/operators";
+
+const array = [10, 20, 30];
+const result = from(array);
+
+result.subscribe(x => console.log(x));
+
 */
+
+/*
+function* generateDoubles(seed) {
+  let i = seed;
+  while (true) {
+    yield i;
+    i = 2 * i; // double it
+  }
+}
+
+const iterator = generateDoubles(3);
+const result = from(iterator).pipe(take(10));
+
+result.subscribe(x => console.log(x));
+*/
+
+/*
+// RxJS v6+
+import { timer } from "rxjs";
+
+//emit 0 after 1 second then complete, since no second argument is supplied
+const source = timer(0, 1000);
+//output: 0
+const subscribe = source.subscribe(val => console.log(val));
 
 const source: Array<number | string> = [1, 2, 3, "1", 0, "3", 20, "5"];
 const result = source
@@ -63,3 +112,4 @@ const rxSource: Observable<string | number> = interval(1000)
 rxSource.subscribe(val => {
   console.log(val);
 });
+*/
