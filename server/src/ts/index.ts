@@ -1,7 +1,4 @@
 //import { interval, Observable } from "rxjs";
-//import { take, map } from "rxjs/operators";
-
-// import { of, Observable } from 'rxjs';
 // import { map } from "rxjs/operators";
 
 /*
@@ -38,8 +35,8 @@ export function duplicateCount(text: string): number {
 
 export function maxNumDublicates(text: string): number {
   if (!text.length) return 0;
-  text = text.toLowerCase();
   const obj: { [key: string]: number } = text
+    .toLowerCase()
     .split("")
     .reduce((acc, current) => {
       if (acc[current] === undefined) {
@@ -52,18 +49,73 @@ export function maxNumDublicates(text: string): number {
   return num ? num + 1 : 0;
 }
 
-console.log(maxNumDublicates("Indivisibilitiessssss"));
-/*
-import { from } from "rxjs";
-import { take } from "rxjs/operators";
+interface GenericIdentityFn {
+  <T>(arg: T): T;
+}
 
-const array = [10, 20, 30];
-const result = from(array);
+function identity<T>(arg: T): T {
+  return arg;
+}
 
-result.subscribe(x => console.log(x));
+const myIdentity: GenericIdentityFn = identity;
 
-*/
+console.info(myIdentity("Generic"));
 
+// @strict: false
+class GenericNumber<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;
+}
+// ---cut---
+const stringNumeric = new GenericNumber<number>();
+stringNumeric.zeroValue = 0;
+stringNumeric.add = function(x, y) {
+  return x + y;
+};
+console.log(stringNumeric.add(2, 3));
+
+abstract class Person {
+  abstract name: string;
+
+  display(): void {
+    console.log(this.name);
+  }
+  abstract find(string: string): Person;
+}
+
+class Employee extends Person {
+  name: string;
+  empCode: number;
+
+  constructor(name: string, code: number) {
+    super(); // must call super()
+
+    this.empCode = code;
+    this.name = name;
+  }
+  display(): void {
+    super.display();
+    console.log(this.name + " " + this.empCode);
+  }
+  find(name: string): Person {
+    // execute AJAX request to find an employee from a db
+    return new Employee(name, 1);
+  }
+}
+
+const emp: Person = new Employee("James", 100);
+emp.display(); //James
+
+interface Lengthwise {
+  length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length); // Now we know it has a .length property, so no more error
+  return arg;
+}
+
+loggingIdentity([1, 2, 3]);
 /*
 function* generateDoubles(seed) {
   let i = seed;
