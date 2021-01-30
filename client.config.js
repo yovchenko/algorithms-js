@@ -62,6 +62,7 @@ module.exports = {
     ignored: "node_modules/**"
   },
   devServer: {
+    host: "0.0.0.0",
     inline: true,
     progress: true,
     contentBase: path.join(__dirname, PATHS.dist),
