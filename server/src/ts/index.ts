@@ -1,100 +1,3 @@
-/**
- * The Product interface declares the operations that all concrete products must
- * implement.
- */
-interface Product {
-  operation(): string;
-}
-
-/**
- * Concrete Products provide various implementations of the Product interface.
- */
-class ConcreteProduct1 implements Product {
-  public operation(): string {
-    return "{Result of the ConcreteProduct1}";
-  }
-}
-
-class ConcreteProduct2 implements Product {
-  public operation(): string {
-    return "{Result of the ConcreteProduct2}";
-  }
-}
-
-/**
- * The Creator class declares the factory method that is supposed to return an
- * object of a Product class. The Creator's subclasses usually provide the
- * implementation of this method.
- */
-abstract class Creator {
-  /**
-   * Note that the Creator may also provide some default implementation of the
-   * factory method.
-   */
-  public abstract factoryMethod(): Product;
-
-  /**
-   * Also note that, despite its name, the Creator's primary responsibility is
-   * not creating products. Usually, it contains some core business logic that
-   * relies on Product objects, returned by the factory method. Subclasses can
-   * indirectly change that business logic by overriding the factory method
-   * and returning a different type of product from it.
-   */
-  public someOperation(): string {
-    // Call the factory method to create a Product object.
-    const product = this.factoryMethod();
-    // Now, use the product.
-    return `Creator: The same creator's code has just worked with ${product.operation()}`;
-  }
-}
-
-/**
- * Concrete Creators override the factory method in order to change the
- * resulting product's type.
- */
-class ConcreteCreator1 extends Creator {
-  /**
-   * Note that the signature of the method still uses the abstract product
-   * type, even though the concrete product is actually returned from the
-   * method. This way the Creator can stay independent of concrete product
-   * classes.
-   */
-  public factoryMethod(): Product {
-    return new ConcreteProduct1();
-  }
-}
-
-class ConcreteCreator2 extends Creator {
-  public factoryMethod(): Product {
-    return new ConcreteProduct2();
-  }
-}
-
-/**
- * The client code works with an instance of a concrete creator, albeit through
- * its base interface. As long as the client keeps working with the creator via
- * the base interface, you can pass it any creator's subclass.
- */
-function clientCode(creator: Creator): void {
-  // ...
-  console.log(
-    "Client: I'm not aware of the creator's class, but it still works."
-  );
-  console.log(creator.someOperation());
-  // ...
-}
-
-/**
- * The Application picks a creator's type depending on the configuration or
- * environment.
- */
-console.log("App: Launched with the ConcreteCreator1.");
-clientCode(new ConcreteCreator1());
-console.log("");
-
-console.log("App: Launched with the ConcreteCreator2.");
-clientCode(new ConcreteCreator2());
-
 /*
 //import { interval, Observable } from "rxjs";
 // import { map } from "rxjs/operators";
@@ -115,7 +18,7 @@ console.log(res);
 */
 
 /*
-function isIsogram(str: string): boolean {
+function isIsogram(str: T): boolean {
   str = str.toLowerCase();
   const arr = str.split("");
   const len = arr.length;
@@ -129,7 +32,7 @@ console.log(isIsogram("Dermatoglyphics"));
 */
 
 /*
-export function duplicateCount(text: string): number {
+export function duplicateCount(text: T): number {
   text = text.toLowerCase();
   const len = text.length;
   const strSet = new Set(Array.from(text));
@@ -147,9 +50,9 @@ export function duplicateCount(text: string): number {
   return count;
 }
 
-export function maxNumDublicates(text: string): number {
+export function maxNumDublicates(text: T): number {
   if (!text.length) return 0;
-  const obj: { [key: string]: number } = text
+  const obj: { [key: T]: number } = text
     .toLowerCase()
     .split("")
     .reduce((acc, current) => {
@@ -181,27 +84,27 @@ class GenericNumber<T> {
   add: (x: T, y: T) => T;
 }
 // ---cut---
-const stringNumeric = new GenericNumber<number>();
-stringNumeric.zeroValue = 0;
-stringNumeric.add = function(x, y) {
+const TNumeric = new GenericNumber<number>();
+TNumeric.zeroValue = 0;
+TNumeric.add = function(x, y) {
   return x + y;
 };
-console.log(stringNumeric.add(2, 3));
+console.log(TNumeric.add(2, 3));
 
 abstract class Person {
-  abstract name: string;
+  abstract name: T;
 
   display(): void {
     console.log(this.name);
   }
-  abstract find(string: string): Person;
+  abstract find(T: T): Person;
 }
 
 class Employee extends Person {
-  name: string;
+  name: T;
   empCode: number;
 
-  constructor(name: string, code: number) {
+  constructor(name: T, code: number) {
     super(); // must call super()
 
     this.empCode = code;
@@ -211,7 +114,7 @@ class Employee extends Person {
     super.display();
     console.log(this.name + " " + this.empCode);
   }
-  find(name: string): Person {
+  find(name: T): Person {
     // execute AJAX request to find an employee from a db
     return new Employee(name, 1);
   }
@@ -264,9 +167,9 @@ const source = timer(0, 1000);
 //output: 0
 const subscribe = source.subscribe(val => console.log(val));
 
-const source: Array<number | string> = [1, 2, 3, "1", 0, "3", 20, "5"];
+const source: Array<number | T> = [1, 2, 3, "1", 0, "3", 20, "5"];
 const result = source
-  .map((val: number | string) => {
+  .map((val: number | T) => {
     if (typeof val !== "number") return parseInt(val);
   })
   .filter((val: number | undefined) => {
@@ -277,10 +180,10 @@ const result = source
   }, 0);
 console.log(result);
 
-const rxSource: Observable<string | number> = interval(1000)
+const rxSource: Observable<T | number> = interval(1000)
   .pipe(take(5))
   .pipe(
-    map((i: string | number) => {
+    map((i: T | number) => {
       return [1, 2, 3, "1", 0, "3", 20, "5"][i];
     })
   );
@@ -289,3 +192,39 @@ rxSource.subscribe(val => {
   console.log(val);
 });
 */
+
+class Animal<T extends string> {
+  private _name;
+
+  constructor(name: T) {
+    this.name = name;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value + "!";
+  }
+}
+
+class Rabbit extends Animal<string> {
+  _earLength: number;
+  constructor(name: string, earLength: number) {
+    super(name);
+    this._earLength = earLength;
+  }
+
+  get earLength(): number {
+    return this._earLength;
+  }
+
+  // ...
+}
+
+const animal = new Animal("Dog");
+console.log(animal.name);
+//const rabbit = new Rabbit("White Rabbit", 10);
+//console.log(rabbit.name); // White Rabbit
+//console.log(rabbit.earLength); // 10

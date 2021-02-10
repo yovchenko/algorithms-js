@@ -10,34 +10,47 @@ document.getElementById("header-button").addEventListener("click", function(e) {
   document.getElementsByTagName("main")[0].appendChild(clon);
 });
 
-angular
-  .module("angularApp", ["ngRoute"])
-  .controller("pagesCtrl", function($scope, $route, $routeParams, $location) {
-    $scope.$location = $location;
-  })
+const app = angular.module("angularApp", ["ngRoute"]);
 
-  .config(function($routeProvider, $locationProvider) {
+app.factory("pagesFactory", [
+  function(): object[] {
+    return [
+      {
+        id: 1
+      },
+      {
+        id: 2
+      },
+      {
+        id: 3
+      }
+    ];
+  }
+]);
+
+app.controller("pagesCtrl", [
+  "$scope",
+  "$route",
+  "$routeParams",
+  "pagesFactory",
+  function($scope, $route, $routeParams, pagesFactory): void {
+    console.log("pagesCtrl", pagesFactory);
+    $scope.pages = pagesFactory;
+  }
+]);
+
+app.config([
+  "$routeProvider",
+  "$locationProvider",
+  function($routeProvider, $locationProvider): void {
     $routeProvider
-      .when("/", {
-        data: {
-          customData: 1
+      .when("/page/:id", {
+        template: function(routeParams: { id: number }) {
+          return "<h1> Page number " + routeParams.id + "</h1>";
         },
-        template: "<h1>Page 1<h1/>",
         controller: "pagesCtrl"
       })
-      .when("/2", {
-        data: {
-          customData: 2
-        },
-        template: "<h1>Page 2<h1/>",
-        controller: "pagesCtrl"
-      })
-      .when("/3", {
-        data: {
-          customData: 3
-        },
-        template: "<h1>Page 3<h1/>",
-        controller: "pagesCtrl"
-      });
+      .otherwise("/page/1");
     $locationProvider.html5Mode(true);
-  });
+  }
+]);

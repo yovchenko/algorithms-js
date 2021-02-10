@@ -26,13 +26,12 @@
         <main>
             <h1>Main h1</h1>
             <article ng-app="angularApp" ng-controller="pagesCtrl">
-                <section class="pagination">
-                    <a class="active" ng-click="page = '1'" href="/">1</a>
-                    <a ng-click="page = '2'" href="2">2</a>
-                    <a ng-click="page = '3'" href="3">3</a>
-                </section>
+                <ul class="pagination">
+                    <li class="page-item" ng-repeat="page in pages">
+                        <a class="page-link" href="page/{{ page.id }}">{{ page.id }}</a>
+                    </li>
+                </ul>
                 <div ng-view></div>
-                <p>$location.path() = {{$location.path()}}</p>
             </article>
             <template>
                 <div class="container">
