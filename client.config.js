@@ -9,6 +9,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
+const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
 
@@ -18,6 +19,9 @@ const PATHS = {
 };
 
 const plugins = [
+  new MomentLocalesPlugin({
+    localesToKeep: ["es-us", "ru"]
+  }),
   new CleanWebpackPlugin(),
   new webpack.HotModuleReplacementPlugin(),
   new MiniCssExtractPlugin({
@@ -62,7 +66,6 @@ module.exports = {
     ignored: "node_modules/**"
   },
   devServer: {
-    host: "0.0.0.0",
     inline: true,
     progress: true,
     contentBase: path.join(__dirname, PATHS.dist),
